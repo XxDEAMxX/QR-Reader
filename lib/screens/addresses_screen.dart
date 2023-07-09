@@ -12,12 +12,22 @@ class AddressesScreen extends StatelessWidget {
     final scans = scanListProvider.scan;
     return ListView.builder(
       itemCount: scans.length,
-      itemBuilder: (context, index) => ListTile(
-        onTap: () => print('${index}'),
-        leading: Icon(Icons.home, color: Theme.of(context).primaryColor,),
-        title: Text(scans[index].valor),
-        subtitle: Text('${scans[index].id}'),
-        trailing: Icon(Icons.keyboard_arrow_right, color: Colors.grey,),
+      itemBuilder: (context, index) => Dismissible(
+        key: UniqueKey(),
+        background: Container(
+          child: Icon(Icons.delete),
+          color: Colors.red,
+        ),
+        onDismissed: (direction) {
+          Provider.of<ScanListProvider>(context, listen: false).deleteScanId(scans[index].id!);
+        },
+        child: ListTile(
+          onTap: () => print('${index}'),
+          leading: Icon(Icons.home, color: Theme.of(context).primaryColor,),
+          title: Text(scans[index].valor),
+          subtitle: Text('${scans[index].id}'),
+          trailing: Icon(Icons.keyboard_arrow_right, color: Colors.grey,),
+        ),
       ),
     );
   }
