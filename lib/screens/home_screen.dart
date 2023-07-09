@@ -46,9 +46,8 @@ class _HomeScreenBody extends StatelessWidget {
     final currentIndex = uiProvider.selectedMenuOpt;
 
     //Todo: temporalmente leer la base de datos
-    final tempScan = new ScanModel( id: 2, valor: 'http://facebook.com');
     //DBProvider.db.newScan(tempScan);
-    DBProvider.db.uptdateScan(tempScan);
+    DBProvider.db.deleteAllScan();
 
     switch(currentIndex){
       
