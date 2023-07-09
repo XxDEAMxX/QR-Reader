@@ -1,6 +1,8 @@
 import 'dart:collection';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:qr_reader/providers/ui_provider.dart';
 import 'package:qr_reader/screens/screens.dart';
 import 'package:qr_reader/widgets/scan_button.dart';
 import 'package:qr_reader/widgets/widgets.dart';
@@ -36,7 +38,11 @@ class _HomeScreenBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final currentIndex = 1;
+
+    //Obtener el selected manu opt
+    final uiProvider = Provider.of<UiProvider>(context);
+
+    final currentIndex = uiProvider.selectedMenuOpt;
 
     switch(currentIndex){
       
