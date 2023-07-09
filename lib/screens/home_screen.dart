@@ -3,6 +3,7 @@ import 'dart:collection';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_reader/providers/db_provider.dart';
+import 'package:qr_reader/providers/scan_list_provider.dart';
 import 'package:qr_reader/providers/ui_provider.dart';
 import 'package:qr_reader/screens/screens.dart';
 import 'package:qr_reader/widgets/scan_button.dart';
@@ -19,7 +20,10 @@ class HomeScreen extends StatelessWidget {
         title: const Center(child: Text('Historia')),
         actions: [
           IconButton(
-            onPressed: (){}, 
+            onPressed: (){
+              final delete = Provider.of<ScanListProvider>(context, listen: false);
+              delete.deleteAll();
+              }, 
             icon: Icon(Icons.delete)
           )
         ],
@@ -45,16 +49,17 @@ class _HomeScreenBody extends StatelessWidget {
 
     final currentIndex = uiProvider.selectedMenuOpt;
 
-    //Todo: temporalmente leer la base de datos
-    //DBProvider.db.newScan(tempScan);
-    DBProvider.db.deleteAllScan();
+    //Usar el ScanListProvider
+    final scanListProvider = Provider.of<ScanListProvider>(context, listen: false);
 
     switch(currentIndex){
       
       case 0:
+        scanListProvider.loadScanType('geo');
         return MapsScreen();
 
       case 1:
+      scanListProvider.loadScanType('http');
         return AddressesScreen();
 
       default:
